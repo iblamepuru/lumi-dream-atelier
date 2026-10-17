@@ -52,10 +52,27 @@ export const navigate = (to: string) => {
 };
 
 /** Scroll to a section if it is on this page, otherwise open the page that holds it. */
+/**
+ * Sections lower on the home page load as they come into view, so content above a target can
+ * grow while we scroll to it. Re-check a few times and nudge until the section sits at the top.
+ */
+const settleOn = (sectionId: string) => {
+  let checks = 0;
+  const check = () => {
+    const el = document.getElementById(sectionId);
+    if (!el || checks++ >= 6) return;
+    const top = el.getBoundingClientRect().top;
+    if (top < -12 || top > 96) el.scrollIntoView({ behavior: 'smooth' });
+    window.setTimeout(check, 700);
+  };
+  window.setTimeout(check, 900);
+};
+
 export const goToSection = (sectionId: string) => {
   const el = document.getElementById(sectionId);
   if (el) {
     el.scrollIntoView({ behavior: 'smooth' });
+    settleOn(sectionId);
     return;
   }
   const page = PAGES.find((p) => p.sectionId === sectionId);

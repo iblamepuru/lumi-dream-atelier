@@ -4,7 +4,6 @@ import { LanternLightField } from './components/LanternLightField';
 import { SparkleTrail } from './components/SparkleTrail';
 import { Navigation } from './components/Navigation';
 import { HeroScene } from './components/HeroScene';
-import { CharacterSheet } from './components/CharacterSheet';
 import { DeferredSection } from './components/DeferredSection';
 import { Footer } from './components/Footer';
 import { Webring } from './components/Webring';
@@ -16,6 +15,7 @@ import { Sparkles, X } from 'lucide-react';
 
 // Below-the-fold sections are split into their own chunks and mounted as "islands"
 // once the browser is idle or the visitor scrolls near them (see DeferredSection).
+const CharacterSheet = lazy(() => import('./components/CharacterSheet').then((m) => ({ default: m.CharacterSheet })));
 const StorySection = lazy(() => import('./components/StorySection').then((m) => ({ default: m.StorySection })));
 const ProjectShowcase = lazy(() => import('./components/ProjectShowcase').then((m) => ({ default: m.ProjectShowcase })));
 const NightPlayroom = lazy(() => import('./playroom/NightPlayroom').then((m) => ({ default: m.NightPlayroom })));
@@ -189,7 +189,9 @@ const PageContent: React.FC<{ path: string }> = ({ path }) => {
         <HeroScene />
 
         {/* Section C: Character Dossier & Official Sheet (with 2D/3D WebGL switch) */}
-        <CharacterSheet />
+        <DeferredSection id="profile" minHeight={1400}>
+          <CharacterSheet />
+        </DeferredSection>
 
         {/* Section D: 4-Scene Interactive Origin Story */}
         <DeferredSection id="story" minHeight={1800}>
@@ -281,7 +283,7 @@ const AtelierContent: React.FC = () => {
       <LumiSpeechBubble />
 
       {/* In-Character Floating Dialogue Companion */}
-      <DeferredSection minHeight={0}>
+      <DeferredSection minHeight={0} idle>
         <LumiChat />
       </DeferredSection>
 
