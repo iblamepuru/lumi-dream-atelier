@@ -96,7 +96,7 @@ export const SecretConstellation: React.FC = () => {
                   className={`p-3.5 rounded-xl border text-center transition-all flex flex-col items-center justify-center min-h-[90px] ${
                     isFound
                       ? 'border-[#F4C96B] bg-[#F4C96B]/15 shadow-sm'
-                      : 'border-[var(--border-color)] bg-[var(--bg-card)]/50 opacity-70'
+                      : 'border-[var(--border-color)] bg-[var(--bg-card)]/50'
                   }`}
                 >
                   <span className="text-base mb-1">

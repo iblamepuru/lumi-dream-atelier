@@ -199,7 +199,7 @@ export const StorySection: React.FC = () => {
                 onClick={() => jumpToChapter(i)}
                 aria-label={`Go to chapter ${i + 1}: ${scene.title}`}
                 aria-current={activeChapter === i ? 'step' : undefined}
-                className="p-1.5 -m-0.5 rounded-full"
+                className="p-2 rounded-full"
               >
                 <span
                   className={`block rounded-full transition-all duration-300 ${

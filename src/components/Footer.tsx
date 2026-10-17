@@ -101,7 +101,7 @@ export const Footer: React.FC = () => {
             <button
               type="button"
               onClick={handleResetAll}
-              className="px-3.5 py-1.5 rounded-full border border-red-400/40 bg-red-500/10 text-red-500 hover:bg-red-500/20 text-xs font-semibold transition-all flex items-center gap-1.5"
+              className="px-3.5 py-1.5 rounded-full border border-red-400/40 bg-red-500/10 text-red-300 hover:bg-red-500/20 text-xs font-semibold transition-all flex items-center gap-1.5"
             >
               <RotateCcw className="w-3.5 h-3.5" />
               <span>Reset All Progress</span>

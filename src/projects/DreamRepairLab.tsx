@@ -240,7 +240,7 @@ export const DreamRepairLab: React.FC<{ onNavigateToStudio?: () => void }> = ({
                       handlePlaceShard(shard.id);
                     }
                   }}
-                  aria-label={`Target slot for ${shard.name} (${shard.emotion}). ${
+                  aria-label={`${shard.emotion}: target slot for ${shard.name}. ${
                     isPlaced ? 'Occupied' : 'Empty. Click to place selected shard'
                   }`}
                 >

@@ -17,9 +17,70 @@
     <meta property="og:title" content="LUMI — The Dream Repair Atelier" />
     <meta property="og:description" content="Meet Lumi, a tiny moon moth who repairs forgotten dreams and guides them home before sunrise." />
     <meta property="og:type" content="website" />
+
+    <!-- Paint the saved Twilight/Midnight theme before any JavaScript loads -->
+    <script>
+      try {
+        var saved = JSON.parse(localStorage.getItem('lumi_atelier_state_v1') || '{}');
+        document.documentElement.setAttribute('data-theme', saved.theme === 'twilight' ? 'twilight' : 'midnight');
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'midnight');
+      }
+    </script>
+
+    <!-- Boot screen: a static copy of the hero that shows instantly while the app loads,
+         then React replaces it. Keeps first paint fast on slow phones. -->
+    <style>
+      #boot {
+        position: absolute;
+        inset: 0;
+        min-height: 100vh;
+        background: linear-gradient(180deg, #130d20 0%, #201736 50%, #29213f 100%);
+        color: #fff8f1;
+        font-family: Nunito, system-ui, -apple-system, 'Segoe UI', sans-serif;
+      }
+      #boot .bar {
+        height: 64px;
+        display: flex;
+        align-items: center;
+        padding: 0 16px;
+        border-bottom: 1px solid rgba(185, 165, 232, 0.22);
+        font: 700 18px Fraunces, Georgia, serif;
+      }
+      #boot .bar b { color: #f4c96b; font-weight: 400; }
+      #boot .hero {
+        max-width: 640px;
+        margin: 0 auto;
+        padding: 72px 20px 0;
+        text-align: center;
+      }
+      #boot h1 {
+        margin: 0 0 20px;
+        font: 800 clamp(2.4rem, 8vw, 3.75rem) / 1.12 Fraunces, Georgia, serif;
+        letter-spacing: -0.02em;
+      }
+      #boot h1 span {
+        background: linear-gradient(90deg, #f4c96b, #d995b7, #b9a5e8);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      #boot p { margin: 0; font-size: 1.25rem; line-height: 1.6; color: #d4c9eb; }
+      html[data-theme='twilight'] #boot { background: #fff9f3; color: #3b2a3f; }
+      html[data-theme='twilight'] #boot p { color: #6b5470; }
+      html[data-theme='twilight'] #boot .bar { border-color: rgba(92, 64, 51, 0.15); }
+    </style>
   </head>
   <body class="antialiased selection:bg-[#F4C96B]/30 selection:text-[#5C4033]">
-    <div id="root"></div>
+    <div id="root">
+      <div id="boot">
+        <div class="bar">Lumi's Little Atelier&nbsp;<b>✦</b></div>
+        <div class="hero">
+          <h1>Some dreams<br /><span>need a little light.</span></h1>
+          <p>Meet Lumi, a tiny moon moth who repairs forgotten dreams and guides them home before sunrise.</p>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

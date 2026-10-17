@@ -26,7 +26,7 @@ export const SoundToggle: React.FC<SoundToggleProps> = ({ className = '' }) => {
       type="button"
       onClick={handleToggle}
       aria-pressed={!state.isMuted}
-      aria-label={state.isMuted ? 'Turn on story sound effects' : 'Mute story sound effects'}
+      aria-label={state.isMuted ? 'Muted: turn on story sound effects' : 'Sound On: mute story sound effects'}
       className={`group relative inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs font-medium transition-all duration-200 select-none ${
         state.isMuted
           ? 'border-[var(--border-color)] bg-[var(--bg-card)] text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:border-[var(--border-glow)]'
