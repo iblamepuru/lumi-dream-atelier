@@ -43,14 +43,13 @@
   }
 }
 
+/* Opacity-only so the pulse stays cheap: animating a drop-shadow filter repainted every frame */
 @keyframes pulseGlow {
   0%, 100% {
     opacity: 0.6;
-    filter: drop-shadow(0 0 12px rgba(244, 201, 107, 0.4));
   }
   50% {
     opacity: 1;
-    filter: drop-shadow(0 0 24px rgba(244, 201, 107, 0.85));
   }
 }
 

@@ -39,7 +39,8 @@ export const SparkleTrail: React.FC = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    let animId: number;
+    // 0 = idle: the loop only runs while sparkles are on screen, so a still page costs nothing.
+    let animId = 0;
     let particles: Particle[] = [];
     let lastX = -100;
     let lastY = -100;
@@ -71,6 +72,10 @@ export const SparkleTrail: React.FC = () => {
       }
       if (particles.length > 70) {
         particles.splice(0, particles.length - 70);
+      }
+      if (!animId) {
+        lastTime = performance.now();
+        animId = requestAnimationFrame(render);
       }
     };
 
@@ -139,10 +144,8 @@ export const SparkleTrail: React.FC = () => {
         drawSparkle(ctx, p.x, p.y, p.size, p.rotation, p.color, p.alpha);
       }
 
-      animId = requestAnimationFrame(render);
+      animId = particles.length > 0 ? requestAnimationFrame(render) : 0;
     };
-
-    animId = requestAnimationFrame(render);
 
     return () => {
       window.removeEventListener('resize', resize);
