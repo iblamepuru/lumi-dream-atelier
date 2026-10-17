@@ -87,7 +87,7 @@ function generateLumiResponse(query: string, visitorName: string): string {
 }
 
 export const LumiChat: React.FC = () => {
-  const { state, visitor, lumiSay } = useAtelier();
+  const { state, visitor } = useAtelier();
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -163,7 +163,6 @@ export const LumiChat: React.FC = () => {
       setMessages((prev) => [...prev, lumiMsg]);
       setIsTyping(false);
       playSparkle(state.isMuted);
-      lumiSay(replyText.slice(0, 45) + '...', 'happy');
     };
 
     // Ask the AI moth first; if the backend is missing, busy or offline, Lumi's

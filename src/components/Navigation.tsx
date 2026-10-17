@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
-import { Sun, Moon, Menu, X, Sparkles } from 'lucide-react';
+import { Sun, Moon, Menu, X, Sparkles, Zap } from 'lucide-react';
 import { useAtelier } from '../context/AtelierContext';
 import { SoundToggle } from './SoundToggle';
 import { playChime } from '../utils/soundEngine';
 import { PAGES, goToSection, navigate, usePath } from '../router';
 
 export const Navigation: React.FC = () => {
-  const { state, toggleTheme } = useAtelier();
+  const { state, toggleTheme, prefs, setPref } = useAtelier();
+
+  const toggleChaos = () => {
+    setPref('chaosMode', !prefs.chaosMode);
+    playChime(state.isMuted, prefs.chaosMode ? 440 : 880);
+  };
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const starCount = state.discoveredStars.length;
@@ -105,6 +110,22 @@ export const Navigation: React.FC = () => {
             {/* Sound Toggle */}
             <SoundToggle />
 
+            {/* Responsive Chaos Mode switch (phones get it in the menu) */}
+            <button
+              type="button"
+              onClick={toggleChaos}
+              aria-pressed={prefs.chaosMode}
+              aria-label={prefs.chaosMode ? 'Turn off 90s chaos mode' : 'Turn on 90s chaos mode'}
+              title="90s Chaos Mode"
+              className={`hidden sm:inline-flex p-2 rounded-full border transition-all hover:scale-105 active:scale-95 ${
+                prefs.chaosMode
+                  ? 'border-pink-400 bg-pink-500/20 text-pink-300 shadow-[0_0_12px_rgba(244,114,182,0.5)]'
+                  : 'border-[var(--border-color)] bg-[var(--bg-card)] text-[var(--text-primary)] hover:border-[var(--border-glow)]'
+              }`}
+            >
+              <Zap className="w-4 h-4" />
+            </button>
+
             {/* Theme Toggle (Twilight vs Midnight) */}
             <button
               type="button"
@@ -172,6 +193,15 @@ export const Navigation: React.FC = () => {
                 <span>Constellation Stars ({starCount}/5 Found)</span>
               </a>
             )}
+            <button
+              type="button"
+              onClick={toggleChaos}
+              aria-pressed={prefs.chaosMode}
+              className="px-3 py-2.5 rounded-lg text-sm font-semibold text-pink-300 bg-pink-500/10 border border-pink-400/40 flex items-center gap-2 min-h-[44px]"
+            >
+              <Zap className="w-4 h-4" />
+              <span>90s Chaos Mode: {prefs.chaosMode ? 'ON' : 'OFF'}</span>
+            </button>
           </nav>
         </div>
       )}

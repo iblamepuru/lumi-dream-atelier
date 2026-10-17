@@ -8,6 +8,8 @@ import { CharacterSheet } from './components/CharacterSheet';
 import { DeferredSection } from './components/DeferredSection';
 import { Footer } from './components/Footer';
 import { Webring } from './components/Webring';
+import { ChaosMode } from './components/ChaosMode';
+import { LumiSpeechBubble } from './components/LumiSpeechBubble';
 import { PAGES, usePath } from './router';
 import { Link } from './components/Link';
 import { Sparkles, X } from 'lucide-react';
@@ -236,6 +238,9 @@ const AtelierContent: React.FC = () => {
       {/* Sticky Storybook Navigation */}
       <Navigation />
 
+      {/* Responsive Chaos Mode marquee (only while chaos mode is on) */}
+      <ChaosMode />
+
       {/* Returning Visitor Toast Banner */}
       <ReturningVisitorBanner />
 
@@ -243,6 +248,9 @@ const AtelierContent: React.FC = () => {
       <main id="main-content" className="flex-grow">
         <PageContent key={path} path={path} />
       </main>
+
+      {/* Lumi's speech bubble for in-page reactions */}
+      <LumiSpeechBubble />
 
       {/* In-Character Floating Dialogue Companion */}
       <DeferredSection minHeight={0}>
