@@ -1,0 +1,109 @@
+:root {
+  /* Core Color Palette Tokens */
+  --moon-cream: #FFF8F1;
+  --midnight-plum: #29213F;
+  --moth-lavender: #B9A5E8;
+  --lantern-gold: #F4C96B;
+  --dream-rose: #D995B7;
+  --story-brown: #5C4033;
+  --deep-violet: #44365C;
+  
+  /* Dynamic Cursor Light Field */
+  --cursor-x: 50vw;
+  --cursor-y: 50vh;
+
+  /* Typography */
+  --font-serif: 'Fraunces', Georgia, serif;
+  --font-display: 'Fredoka', cursive, sans-serif;
+  --font-sans: 'Nunito', system-ui, -apple-system, sans-serif;
+
+  /* Default Twilight Mode */
+  --bg-primary: #FFF9F3;
+  --bg-secondary: #F7EFE9;
+  --bg-card: rgba(255, 255, 255, 0.85);
+  --bg-card-elevated: #FFFFFF;
+  --bg-glass: rgba(255, 248, 241, 0.75);
+  --border-color: rgba(92, 64, 51, 0.16);
+  --border-glow: rgba(244, 201, 107, 0.6);
+  --text-primary: #453026;
+  --text-secondary: #6F5547;
+  --text-muted: #8E7465;
+  --accent-gold: #DCA334;
+  --accent-rose: #C86993;
+  --accent-lavender: #7D63B8;
+  --shadow-soft: 0 8px 32px rgba(92, 64, 51, 0.08);
+  --shadow-glow: 0 0 25px rgba(244, 201, 107, 0.35);
+  --surface-badge: rgba(244, 201, 107, 0.25);
+  --sky-gradient: linear-gradient(180deg, #F9ECE4 0%, #EFE1F5 50%, #FFF8F1 100%);
+  --nav-bg: rgba(255, 248, 241, 0.85);
+}
+
+[data-theme='midnight'],
+.theme-midnight {
+  /* Midnight Mode */
+  --bg-primary: #1C1629;
+  --bg-secondary: #29213F;
+  --bg-card: rgba(41, 33, 63, 0.75);
+  --bg-card-elevated: #362B54;
+  --bg-glass: rgba(41, 33, 63, 0.82);
+  --border-color: rgba(185, 165, 232, 0.22);
+  --border-glow: rgba(244, 201, 107, 0.85);
+  --text-primary: #FFF8F1;
+  --text-secondary: #D4C9EB;
+  --text-muted: #A396BE;
+  --accent-gold: #F4C96B;
+  --accent-rose: #E5A4C3;
+  --accent-lavender: #C4B3ED;
+  --shadow-soft: 0 8px 32px rgba(10, 6, 20, 0.45);
+  --shadow-glow: 0 0 35px rgba(244, 201, 107, 0.55);
+  --surface-badge: rgba(185, 165, 232, 0.2);
+  --sky-gradient: linear-gradient(180deg, #130D20 0%, #201736 50%, #29213F 100%);
+  --nav-bg: rgba(28, 22, 41, 0.85);
+}
+
+/* Base Body Application */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  transition: background-color 0.4s ease, color 0.4s ease;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, .font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+/* Accessible focus outlines */
+:focus-visible {
+  outline: 2.5px solid var(--accent-gold);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--moth-lavender);
+  border-radius: 6px;
+  border: 2px solid var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-gold);
+}
