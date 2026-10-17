@@ -72,7 +72,7 @@ export const Navigation: React.FC = () => {
               <a
                 key={link.href}
                 href={link.href}
-                aria-current={path === link.href ? 'page' : undefined}
+                aria-current={path === link.href || path.startsWith(link.href + '/') ? 'page' : undefined}
                 onClick={(e) => {
                   if (isNewTabClick(e)) return;
                   e.preventDefault();
@@ -168,7 +168,7 @@ export const Navigation: React.FC = () => {
               <a
                 key={link.href}
                 href={link.href}
-                aria-current={path === link.href ? 'page' : undefined}
+                aria-current={path === link.href || path.startsWith(link.href + '/') ? 'page' : undefined}
                 onClick={(e) => {
                   if (isNewTabClick(e)) return;
                   e.preventDefault();

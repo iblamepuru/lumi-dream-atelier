@@ -10,7 +10,7 @@ import { Footer } from './components/Footer';
 import { Webring } from './components/Webring';
 import { ChaosMode } from './components/ChaosMode';
 import { LumiSpeechBubble } from './components/LumiSpeechBubble';
-import { PAGES, usePath } from './router';
+import { PAGES, PROJECT_PAGES, usePath } from './router';
 import { Link } from './components/Link';
 import { Sparkles, X } from 'lucide-react';
 
@@ -125,14 +125,16 @@ const NotFound: React.FC = () => (
 
 const PageContent: React.FC<{ path: string }> = ({ path }) => {
   const page = PAGES.find((pg) => pg.path === path);
+  const project = PROJECT_PAGES.find((pg) => pg.path === path);
 
   useEffect(() => {
-    document.title = page && page.path !== '/'
-      ? `${page.title} · LUMI — The Dream Repair Atelier`
+    const named = project ?? (page && page.path !== '/' ? page : null);
+    document.title = named
+      ? `${named.title} · LUMI — The Dream Repair Atelier`
       : page
         ? 'LUMI — The Dream Repair Atelier | haX.baby'
         : 'Lost dream (404) · LUMI';
-  }, [page]);
+  }, [page, project]);
 
   // New page: start at the top, or at #section once its (lazy) content has arrived.
   useLayoutEffect(() => {
@@ -151,6 +153,32 @@ const PageContent: React.FC<{ path: string }> = ({ path }) => {
     seek();
     return () => cancelAnimationFrame(raf);
   }, [path]);
+
+  if (project) {
+    return (
+      <>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 -mb-8 relative z-10">
+          <nav aria-label="Breadcrumb" className="text-xs font-semibold text-[var(--text-muted)]">
+            <Link to="/" className="hover:text-[var(--accent-gold)] underline underline-offset-2">
+              Home
+            </Link>
+            <span aria-hidden="true"> › </span>
+            <Link to="/workshop" className="hover:text-[var(--accent-gold)] underline underline-offset-2">
+              Workshop
+            </Link>
+            <span aria-hidden="true"> › </span>
+            <span aria-current="page" className="text-[var(--accent-gold)]">
+              {project.label}
+            </span>
+          </nav>
+        </div>
+        <Suspense fallback={<SectionFallback />}>
+          <ProjectShowcase focus={project.tab} />
+        </Suspense>
+        <Webring path="/workshop" />
+      </>
+    );
+  }
 
   if (!page) return <NotFound />;
 

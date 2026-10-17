@@ -23,6 +23,15 @@ export const PAGES: PageInfo[] = [
   { path: '/goodnight', label: 'Goodnight', title: 'Goodnight', blurb: 'The ending, and the secret constellation.', sectionId: 'goodnight' },
 ];
 
+export type ProjectTab = 'lab' | 'studio' | 'navigator';
+
+// Each Workshop invention also has its own page, so a card click lands right on the task.
+export const PROJECT_PAGES: { path: string; tab: ProjectTab; label: string; title: string; blurb: string }[] = [
+  { path: '/workshop/repair-lab', tab: 'lab', label: 'Repair Lab', title: 'Dream Repair Lab', blurb: 'Mend the shattered dream crystal: Hope, Memory, Wonder and Courage.' },
+  { path: '/workshop/lantern-studio', tab: 'studio', label: 'Lantern Studio', title: 'Moonlight Lantern Studio', blurb: 'Design a lantern for your dream and download its keepsake card.' },
+  { path: '/workshop/delivery-map', tab: 'navigator', label: 'Delivery Map', title: 'Dream Delivery Navigator', blurb: 'Fly the mended dream home to three sleeping corners of the world.' },
+];
+
 const normalize = (path: string) => (path.length > 1 ? path.replace(/\/+$/, '') : path) || '/';
 
 const subscribe = (onChange: () => void) => {

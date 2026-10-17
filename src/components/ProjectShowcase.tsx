@@ -1,20 +1,96 @@
 import React, { useState } from 'react';
-import { goToSection } from '../router';
+import { PROJECT_PAGES, goToSection, navigate, type ProjectTab } from '../router';
+import { Link } from './Link';
 import { useAtelier } from '../context/AtelierContext';
 import { DreamRepairLab } from '../projects/DreamRepairLab';
 import { LanternStudio } from '../projects/LanternStudio';
 import { DreamDeliveryNavigator } from '../projects/DreamDeliveryNavigator';
 import { playChime } from '../utils/soundEngine';
-import { Sparkles, Check, Wrench, Hammer, Compass, ArrowRight } from 'lucide-react';
+import { Sparkles, Check, Wrench, Hammer, Compass, ArrowRight, ArrowLeft, LayoutGrid } from 'lucide-react';
 
-export const ProjectShowcase: React.FC = () => {
+interface ProjectShowcaseProps {
+  /** When set, show only this invention as its own page (/workshop/...). */
+  focus?: ProjectTab;
+}
+
+export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ focus }) => {
   const { state } = useAtelier();
-  const [activeProjectTab, setActiveProjectTab] = useState<'lab' | 'studio' | 'navigator'>('lab');
+  const [activeProjectTab, setActiveProjectTab] = useState<ProjectTab>('lab');
 
-  const handleTabSelect = (tab: 'lab' | 'studio' | 'navigator') => {
+  const handleTabSelect = (tab: ProjectTab) => {
     setActiveProjectTab(tab);
     playChime(state.isMuted, 659.25);
   };
+
+  // Cards open each invention on its own page, ready to play.
+  const openProject = (tab: ProjectTab) => {
+    playChime(state.isMuted, 659.25);
+    const page = PROJECT_PAGES.find((pg) => pg.tab === tab);
+    if (page) navigate(page.path);
+  };
+
+  const renderProject = (tab: ProjectTab, routed: boolean) => {
+    const next = (target: ProjectTab) => (routed ? openProject(target) : handleTabSelect(target));
+    if (tab === 'lab') return <DreamRepairLab onNavigateToStudio={() => next('studio')} />;
+    if (tab === 'studio') return <LanternStudio onNavigateToDelivery={() => next('navigator')} />;
+    return <DreamDeliveryNavigator onNavigateToEnding={() => goToSection('goodnight')} />;
+  };
+
+  if (focus) {
+    const index = PROJECT_PAGES.findIndex((pg) => pg.tab === focus);
+    const page = PROJECT_PAGES[index];
+    const prev = PROJECT_PAGES[index - 1];
+    const nextPage = PROJECT_PAGES[index + 1];
+    const navBtn =
+      'inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-xs sm:text-sm font-bold border border-[var(--border-color)] bg-[var(--bg-card)] text-[var(--text-primary)] hover:border-[var(--accent-gold)] transition-colors min-h-[44px]';
+
+    return (
+      <section id="projects" aria-labelledby="workbench-heading" className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8">
+        <div className="text-center max-w-3xl mx-auto space-y-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-[var(--surface-badge)] border border-[var(--border-color)] text-[var(--accent-gold)]">
+            <Wrench className="w-3.5 h-3.5" />
+            <span>
+              Invention 0{index + 1} of 0{PROJECT_PAGES.length}
+            </span>
+          </div>
+          <h2 id="workbench-heading" className="text-3xl sm:text-4xl lg:text-5xl font-bold font-serif text-[var(--text-primary)]">
+            {page.title}
+          </h2>
+          <p className="text-base sm:text-lg text-[var(--text-secondary)]">{page.blurb}</p>
+        </div>
+
+        <div className="p-4 sm:p-8 rounded-3xl bg-[var(--bg-card)] border-2 border-[var(--border-glow)] shadow-2xl backdrop-blur-md">
+          {renderProject(focus, true)}
+        </div>
+
+        <nav aria-label="More inventions" className="flex flex-wrap items-center justify-between gap-3">
+          {prev ? (
+            <Link to={prev.path} className={navBtn}>
+              <ArrowLeft className="w-4 h-4" />
+              <span>{prev.label}</span>
+            </Link>
+          ) : (
+            <span />
+          )}
+          <Link to="/workshop" className={navBtn}>
+            <LayoutGrid className="w-4 h-4" />
+            <span>All inventions</span>
+          </Link>
+          {nextPage ? (
+            <Link to={nextPage.path} className={navBtn}>
+              <span>{nextPage.label}</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          ) : (
+            <Link to="/goodnight" className={navBtn}>
+              <span>The Goodnight finale</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          )}
+        </nav>
+      </section>
+    );
+  }
 
   const isCrystalDone = state.crystalRepaired;
   const isCardDone = state.lanternConfig.cardCreated;
@@ -100,14 +176,14 @@ export const ProjectShowcase: React.FC = () => {
           <div className="pt-4 mt-2 border-t border-[var(--border-color)]">
             <button
               type="button"
-              onClick={() => handleTabSelect('lab')}
+              onClick={() => openProject('lab')}
               className={`w-full py-2.5 px-4 rounded-full font-bold text-xs flex items-center justify-center gap-2 transition-all ${
                 activeProjectTab === 'lab'
                   ? 'bg-gradient-to-r from-[#F4C96B] to-[#E5B548] text-[#453026] shadow'
                   : 'bg-[var(--surface-badge)] text-[var(--text-primary)] hover:bg-[var(--border-color)]'
               }`}
             >
-              <span>{activeProjectTab === 'lab' ? 'Active on Workbench' : 'Open Repair Lab'}</span>
+              <span>Open Repair Lab</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>
@@ -167,14 +243,14 @@ export const ProjectShowcase: React.FC = () => {
           <div className="pt-4 mt-2 border-t border-[var(--border-color)]">
             <button
               type="button"
-              onClick={() => handleTabSelect('studio')}
+              onClick={() => openProject('studio')}
               className={`w-full py-2.5 px-4 rounded-full font-bold text-xs flex items-center justify-center gap-2 transition-all ${
                 activeProjectTab === 'studio'
                   ? 'bg-gradient-to-r from-[#F4C96B] to-[#E5B548] text-[#453026] shadow'
                   : 'bg-[var(--surface-badge)] text-[var(--text-primary)] hover:bg-[var(--border-color)]'
               }`}
             >
-              <span>{activeProjectTab === 'studio' ? 'Active on Workbench' : 'Open Lantern Studio'}</span>
+              <span>Open Lantern Studio</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>
@@ -232,14 +308,14 @@ export const ProjectShowcase: React.FC = () => {
           <div className="pt-4 mt-2 border-t border-[var(--border-color)]">
             <button
               type="button"
-              onClick={() => handleTabSelect('navigator')}
+              onClick={() => openProject('navigator')}
               className={`w-full py-2.5 px-4 rounded-full font-bold text-xs flex items-center justify-center gap-2 transition-all ${
                 activeProjectTab === 'navigator'
                   ? 'bg-gradient-to-r from-[#F4C96B] to-[#E5B548] text-[#453026] shadow'
                   : 'bg-[var(--surface-badge)] text-[var(--text-primary)] hover:bg-[var(--border-color)]'
               }`}
             >
-              <span>{activeProjectTab === 'navigator' ? 'Active on Workbench' : 'Open Delivery Map'}</span>
+              <span>Open Delivery Map</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>
@@ -296,19 +372,7 @@ export const ProjectShowcase: React.FC = () => {
 
         {/* ACTIVE PROJECT RENDER */}
         <div className="pt-8">
-          {activeProjectTab === 'lab' && (
-            <DreamRepairLab onNavigateToStudio={() => handleTabSelect('studio')} />
-          )}
-
-          {activeProjectTab === 'studio' && (
-            <LanternStudio onNavigateToDelivery={() => handleTabSelect('navigator')} />
-          )}
-
-          {activeProjectTab === 'navigator' && (
-            <DreamDeliveryNavigator
-              onNavigateToEnding={() => goToSection('goodnight')}
-            />
-          )}
+          {renderProject(activeProjectTab, false)}
         </div>
       </div>
     </section>
