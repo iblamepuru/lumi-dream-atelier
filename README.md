@@ -145,7 +145,7 @@ Mobile Lighthouse, 3 runs ([full reports](docs/lighthouse)):
 
 | Performance | Accessibility | Best Practices | SEO |
 | :---: | :---: | :---: | :---: |
-| **86–94** | **100** | **100** | **91–100** |
+| **82–85** | **100** | **100** | **100** |
 
 Playwright end-to-end tests run on **desktop and a phone profile**: every page renders with no console errors, the 404 page, header navigation and back button, mute persistence, solving the crystal puzzle (and the journey checklist noticing), guestbook fallback to browser storage, Ask Lumi falling back to storybook replies, storybook page-turns by keyboard, the nightlight finding a dream friend using only arrow keys, and the scroll-synced delivery flight reaching every stop.
 
