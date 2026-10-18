@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useAtelier } from '../context/AtelierContext';
+import { useCornerBadgeLift } from '../hooks/useCornerBadgeLift';
 import { playChime, playSparkle } from '../utils/soundEngine';
 import { X, Send, Sparkles, Moon, Star, RefreshCw } from 'lucide-react';
 
@@ -96,6 +97,8 @@ export const LumiChat: React.FC = () => {
   const [isTyping, setIsTyping] = useState(false);
   // null until the first reply: true = Claude-powered Lumi, false = rule-based pocketbook replies
   const [aiOnline, setAiOnline] = useState<boolean | null>(null);
+  // Sit above Netlify's "Powered by Netlify" corner badge on the live site.
+  const badgeLift = useCornerBadgeLift();
   const [messages, setMessages] = useState<ChatMessage[]>(() => {
     try {
       const stored = sessionStorage.getItem('lumi_chat_history_v1');
@@ -205,7 +208,7 @@ export const LumiChat: React.FC = () => {
   return (
     <>
       {/* Floating Launcher Button */}
-      <div className="fixed bottom-6 right-6 z-40">
+      <div className="fixed right-6 z-40" style={{ bottom: badgeLift || 24 }}>
         <button
           type="button"
           onClick={() => {
@@ -242,7 +245,8 @@ export const LumiChat: React.FC = () => {
           role="dialog"
           aria-modal="true"
           aria-label="Chat with Lumi the Moon Moth"
-          className="fixed bottom-24 right-4 sm:right-6 w-[calc(100vw-2rem)] sm:w-96 max-h-[580px] h-[540px] flex flex-col rounded-3xl bg-[var(--bg-card)]/95 border border-[var(--border-glow)] shadow-[0_20px_60px_rgba(0,0,0,0.6),0_0_30px_rgba(244,201,107,0.2)] backdrop-blur-xl z-50 overflow-hidden"
+          style={{ bottom: (badgeLift || 24) + 72, maxHeight: `calc(100vh - ${(badgeLift || 24) + 88}px)` }}
+          className="fixed right-4 sm:right-6 w-[calc(100vw-2rem)] sm:w-96 h-[540px] flex flex-col rounded-3xl bg-[var(--bg-card)]/95 border border-[var(--border-glow)] shadow-[0_20px_60px_rgba(0,0,0,0.6),0_0_30px_rgba(244,201,107,0.2)] backdrop-blur-xl z-50 overflow-hidden"
         >
           {/* Header */}
           <div className="p-4 border-b border-[var(--border-color)] bg-gradient-to-r from-[#F4C96B]/15 via-transparent to-[#B9A5E8]/15 flex items-center justify-between">
