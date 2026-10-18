@@ -12,6 +12,9 @@ interface ChatMessage {
 
 const AI_CHAT_ENDPOINT = '/api/lumi-chat';
 
+const newMessageId = (sender: 'user' | 'lumi') => `${sender}-${Date.now()}`;
+const clockTime = () => new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
 const QUICK_PROMPTS = [
   'How did you find your first star?',
   'Why do dreams break?',
@@ -140,10 +143,10 @@ export const LumiChat: React.FC = () => {
     if (!query || isTyping) return;
 
     const userMsg: ChatMessage = {
-      id: `user-${Date.now()}`,
+      id: newMessageId('user'),
       sender: 'user',
       text: query,
-      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      timestamp: clockTime(),
     };
 
     const history = [...messages, userMsg];
@@ -155,10 +158,10 @@ export const LumiChat: React.FC = () => {
 
     const deliver = (replyText: string) => {
       const lumiMsg: ChatMessage = {
-        id: `lumi-${Date.now()}`,
+        id: newMessageId('lumi'),
         sender: 'lumi',
         text: replyText,
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        timestamp: clockTime(),
       };
       setMessages((prev) => [...prev, lumiMsg]);
       setIsTyping(false);

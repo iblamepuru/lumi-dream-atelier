@@ -28,24 +28,21 @@ const SecretConstellation = lazy(() =>
 const FinalGoodnight = lazy(() => import('./components/FinalGoodnight').then((m) => ({ default: m.FinalGoodnight })));
 const LumiChat = lazy(() => import('./components/LumiChat').then((m) => ({ default: m.LumiChat })));
 
+const hasSavedProgress = () => {
+  try {
+    const stored = localStorage.getItem('lumi_atelier_state_v1');
+    if (!stored) return false;
+    const parsed = JSON.parse(stored);
+    return Boolean(parsed.lanternConfig?.cardCreated || parsed.crystalRepaired || parsed.deliveriesCompleted?.length > 0);
+  } catch {
+    return false;
+  }
+};
+
 const ReturningVisitorBanner: React.FC = () => {
   const { state } = useAtelier();
-  const [showBanner, setShowBanner] = useState(false);
-
-  useEffect(() => {
-    // Check if there is saved memory from previous visits
-    try {
-      const stored = localStorage.getItem('lumi_atelier_state_v1');
-      if (stored) {
-        const parsed = JSON.parse(stored);
-        if (parsed.lanternConfig?.cardCreated || parsed.crystalRepaired || parsed.deliveriesCompleted?.length > 0) {
-          setShowBanner(true);
-        }
-      }
-    } catch {
-      // Ignore
-    }
-  }, []);
+  // Saved memory from a previous visit decides whether to greet the visitor back.
+  const [showBanner, setShowBanner] = useState(hasSavedProgress);
 
   if (!showBanner) return null;
 

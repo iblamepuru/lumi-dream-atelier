@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState, type RefObject } from 'react';
 
+const CENTRED = { x: 0, y: 0 };
+
 interface EyeOffset {
   x: number;
   y: number;
@@ -21,10 +23,7 @@ export function useEyeTracking(
   const latest = useRef<EyeOffset>({ x: 0, y: 0 });
 
   useEffect(() => {
-    if (!enabled || typeof window === 'undefined') {
-      setPupilOffset({ x: 0, y: 0 });
-      return;
-    }
+    if (!enabled || typeof window === 'undefined') return;
 
     const schedule = () => {
       if (rafId.current !== null) return;
@@ -75,5 +74,5 @@ export function useEyeTracking(
     };
   }, [enabled, maxRadius]);
 
-  return { targetRef, pupilOffset };
+  return { targetRef, pupilOffset: enabled ? pupilOffset : CENTRED };
 }

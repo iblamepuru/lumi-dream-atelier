@@ -8,32 +8,30 @@ interface Lumi3DViewerProps {
   className?: string;
 }
 
+/** Returns a friendly message when this browser can't draw WebGL, or null when it can. */
+const detectWebGLProblem = (): string | null => {
+  try {
+    const canvas = document.createElement('canvas');
+    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    return gl ? null : 'WebGL is not supported in this environment.';
+  } catch {
+    return 'WebGL initialization failed.';
+  }
+};
+
 export const Lumi3DViewer: React.FC<Lumi3DViewerProps> = ({ className = '' }) => {
   const mountRef = useRef<HTMLDivElement | null>(null);
   const { state } = useAtelier();
   const [autoRotate, setAutoRotate] = useState(true);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [webGLError, setWebGLError] = useState<string | null>(null);
+  const [webGLError] = useState<string | null>(detectWebGLProblem);
 
   const lanternColor = state.lanternConfig.color;
   const palette = LANTERN_PALETTE[lanternColor] || LANTERN_PALETTE.gold;
 
   useEffect(() => {
     const container = mountRef.current;
-    if (!container) return;
-
-    // Check WebGL availability
-    try {
-      const canvas = document.createElement('canvas');
-      const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-      if (!gl) {
-        setWebGLError('WebGL is not supported in this environment.');
-        return;
-      }
-    } catch {
-      setWebGLError('WebGL initialization failed.');
-      return;
-    }
+    if (!container || webGLError) return;
 
     const width = container.clientWidth || 320;
     const height = container.clientHeight || 320;
@@ -359,7 +357,7 @@ export const Lumi3DViewer: React.FC<Lumi3DViewerProps> = ({ className = '' }) =>
       renderer.dispose();
       if (domEl.parentNode) domEl.parentNode.removeChild(domEl);
     };
-  }, [palette, autoRotate]);
+  }, [palette, autoRotate, webGLError]);
 
   if (webGLError) {
     return (
