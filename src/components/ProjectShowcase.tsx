@@ -106,7 +106,7 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ focus }) => {
       <div className="text-center max-w-3xl mx-auto space-y-3">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-[var(--surface-badge)] border border-[var(--border-color)] text-[var(--accent-gold)]">
           <Wrench className="w-3.5 h-3.5" />
-          <span>Section E & F · Active Interactive Workbench</span>
+          <span>Workshop No. 07 · Open Until Sunrise</span>
         </div>
         <h2 id="workbench-heading" className="text-3xl sm:text-4xl lg:text-5xl font-bold font-serif text-[var(--text-primary)]">
           Lumi's Three Connected Inventions

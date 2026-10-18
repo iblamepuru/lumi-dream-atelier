@@ -37,7 +37,7 @@ export const FinalGoodnight: React.FC = () => {
         <div className="space-y-4 max-w-2xl mx-auto relative z-10">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-[var(--accent-gold)] bg-[var(--surface-badge)] border border-[var(--border-color)]">
             <Moon className="w-3.5 h-3.5 text-[#F4C96B]" />
-            <span>Section H · Final Goodnight Closing Scene</span>
+            <span>The Last Page</span>
           </div>
 
           {/* Exact Headline */}

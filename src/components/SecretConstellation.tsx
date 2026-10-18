@@ -70,7 +70,7 @@ export const SecretConstellation: React.FC = () => {
         <div className="text-center max-w-2xl mx-auto space-y-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-[var(--surface-badge)] border border-[var(--border-color)] text-[var(--accent-gold)]">
             <Sparkles className="w-3.5 h-3.5 text-[#F4C96B]" />
-            <span>Section G · The Hidden Constellation Easter Egg</span>
+            <span>A Secret in the Sky</span>
           </div>
           <h2 id="constellation-heading" className="text-3xl sm:text-4xl font-serif font-bold text-[var(--text-primary)]">
             The Little Moth & The First Star
@@ -217,7 +217,7 @@ export const SecretConstellation: React.FC = () => {
             className="text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)] flex items-center gap-1.5 transition-colors"
           >
             <RotateCcw className="w-3.5 h-3.5" />
-            <span>Reset Star Discovery (Judge Utility)</span>
+            <span>Hide the Stars Again</span>
           </button>
         </div>
 

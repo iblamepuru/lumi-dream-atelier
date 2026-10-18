@@ -406,7 +406,7 @@ export const Lumi3DViewer: React.FC<Lumi3DViewerProps> = ({ className = '' }) =>
       </div>
 
       <span className="text-[11px] font-mono text-[var(--text-muted)] mt-2">
-        ✦ Boss-Level 3D WebGL Model · Powered by Three.js
+        ✦ Lumi in 3D · drag to spin
       </span>
     </div>
   );
