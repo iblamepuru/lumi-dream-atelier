@@ -8,6 +8,7 @@ import { DeferredSection } from './components/DeferredSection';
 import { Footer } from './components/Footer';
 import { Webring } from './components/Webring';
 import { ThreeAnswers } from './components/ThreeAnswers';
+import { JourneyChecklist } from './components/JourneyChecklist';
 import { ChaosMode } from './components/ChaosMode';
 import { LumiSpeechBubble } from './components/LumiSpeechBubble';
 import { PAGES, PROJECT_PAGES, usePath } from './router';
@@ -26,6 +27,7 @@ const SecretConstellation = lazy(() =>
   import('./components/SecretConstellation').then((m) => ({ default: m.SecretConstellation }))
 );
 const FinalGoodnight = lazy(() => import('./components/FinalGoodnight').then((m) => ({ default: m.FinalGoodnight })));
+const BuildNotes = lazy(() => import('./components/BuildNotes').then((m) => ({ default: m.BuildNotes })));
 const LumiChat = lazy(() => import('./components/LumiChat').then((m) => ({ default: m.LumiChat })));
 
 const hasSavedProgress = () => {
@@ -124,15 +126,17 @@ const NotFound: React.FC = () => (
 const PageContent: React.FC<{ path: string }> = ({ path }) => {
   const page = PAGES.find((pg) => pg.path === path);
   const project = PROJECT_PAGES.find((pg) => pg.path === path);
+  // Out-of-world notes for judges, linked from the footer (not part of the webring).
+  const isNotes = path === '/build-notes';
 
   useEffect(() => {
-    const named = project ?? (page && page.path !== '/' ? page : null);
+    const named = isNotes ? { title: 'Build Notes' } : (project ?? (page && page.path !== '/' ? page : null));
     document.title = named
       ? `${named.title} · LUMI — The Dream Repair Atelier`
       : page
         ? 'LUMI — The Dream Repair Atelier | haX.baby'
         : 'Lost dream (404) · LUMI';
-  }, [page, project]);
+  }, [page, project, isNotes]);
 
   // New page: start at the top, or at #section once its (lazy) content has arrived.
   useLayoutEffect(() => {
@@ -151,6 +155,14 @@ const PageContent: React.FC<{ path: string }> = ({ path }) => {
     seek();
     return () => cancelAnimationFrame(raf);
   }, [path]);
+
+  if (isNotes) {
+    return (
+      <Suspense fallback={<SectionFallback />}>
+        <BuildNotes />
+      </Suspense>
+    );
+  }
 
   if (project) {
     return (
@@ -188,6 +200,9 @@ const PageContent: React.FC<{ path: string }> = ({ path }) => {
 
         {/* The brief's three questions, answered plainly */}
         <ThreeAnswers />
+
+        {/* A two-minute guided path through the best moments */}
+        <JourneyChecklist />
 
         {/* Section C: Character Dossier & Official Sheet (with 2D/3D WebGL switch) */}
         <DeferredSection id="profile" minHeight={1400}>

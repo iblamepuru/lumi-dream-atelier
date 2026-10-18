@@ -229,8 +229,8 @@ export const LumiChat: React.FC = () => {
           <div className="text-left hidden sm:block">
             <div className="text-xs font-bold font-serif flex items-center gap-1.5 text-[var(--accent-gold)]">
               <span>Ask Lumi</span>
-              <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-[#F4C96B]/20 text-[#F4C96B] font-mono" title={aiOnline === false ? 'AI is resting, so Lumi answers from the pocketbook of stories' : 'Powered by Claude'}>
-                {aiOnline === false ? 'Story Moth' : 'AI Moth'}
+              <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-[#F4C96B]/20 text-[#F4C96B] font-mono" title={aiOnline === false ? 'AI is resting, so Lumi answers from the storybook' : aiOnline ? 'Lumi is answering with AI (Claude)' : 'Lumi answers with AI (Claude) when it is awake, and from the storybook otherwise'}>
+                {aiOnline === null ? 'Say hi' : aiOnline ? 'AI Moth' : 'Story Moth'}
               </span>
             </div>
             <div className="text-[10px] text-[var(--text-muted)]">Workshop No. 07</div>
@@ -334,6 +334,15 @@ export const LumiChat: React.FC = () => {
               </button>
             ))}
           </div>
+
+          {/* Honest note on where replies come from */}
+          <p className="px-4 pt-2 text-[10px] leading-snug text-[var(--text-muted)]" aria-live="polite">
+            {aiOnline === false
+              ? 'Lumi is answering from the storybook right now (AI resting).'
+              : aiOnline
+                ? 'Lumi is answering with AI (Claude). Storybook replies take over if AI is resting.'
+                : 'Lumi answers with AI (Claude) when it is awake, and from the storybook otherwise.'}
+          </p>
 
           {/* Input Footer */}
           <form

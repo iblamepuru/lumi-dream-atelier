@@ -28,3 +28,7 @@ dist-ssr
 .env.*
 .netlify
 .claude
+
+# Playwright output
+test-results
+playwright-report

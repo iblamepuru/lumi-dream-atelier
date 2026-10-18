@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useAtelier } from '../context/AtelierContext';
 import { playSparkle, playSnap } from '../utils/soundEngine';
 import confetti from 'canvas-confetti';
@@ -93,6 +93,14 @@ export const DreamGuestbook: React.FC = () => {
   const [backend, setBackend] = useState<'connecting' | 'live' | 'offline'>('connecting');
   const [visits, setVisits] = useState<number | null>(null);
   const [isSending, setIsSending] = useState(false);
+  // Gentle spam guards: a hidden field only bots fill, and how long the form has been on screen.
+  const [honeypot, setHoneypot] = useState('');
+  const formShownAt = useRef(0);
+  const [notice, setNotice] = useState<string | null>(null);
+
+  useEffect(() => {
+    formShownAt.current = performance.now();
+  }, []);
 
   const [authorInput, setAuthorInput] = useState('');
   const [messageInput, setMessageInput] = useState('');
@@ -159,10 +167,29 @@ export const DreamGuestbook: React.FC = () => {
         const res = await fetch(API_GUESTBOOK, {
           method: 'POST',
           headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({ author: newWish.author, message: newWish.message, emotion: newWish.emotion }),
+          body: JSON.stringify({
+            author: newWish.author,
+            message: newWish.message,
+            emotion: newWish.emotion,
+            website: honeypot,
+            elapsedMs: Math.round(performance.now() - formShownAt.current),
+          }),
         });
+        if (res.status === 422 || res.status === 429) {
+          // Moderation or rate limit: explain kindly, keep the visitor's text so they can edit it.
+          const reason: string = (await res.json()).error ?? 'Lumi could not pin that wish right now.';
+          setIsSending(false);
+          setNotice(reason);
+          lumiSay?.(reason, 'curious');
+          return;
+        }
         if (!res.ok) throw new Error('rejected');
-        newWish = toWish((await res.json()).wish);
+        const data: { wish: RemoteWish | null } = await res.json();
+        if (!data.wish) {
+          setIsSending(false);
+          return;
+        }
+        newWish = toWish(data.wish);
       } catch {
         setIsSending(false);
         lumiSay?.('The starlight thread snapped on the way to the wall. Could you try pinning it again?', 'sleepy');
@@ -171,6 +198,7 @@ export const DreamGuestbook: React.FC = () => {
       setIsSending(false);
     }
 
+    setNotice(null);
     setWishes((prev) => [newWish, ...prev]);
     setAuthorInput('');
     setMessageInput('');
@@ -260,7 +288,14 @@ export const DreamGuestbook: React.FC = () => {
             <span>Hang a Wish on the Wall</span>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4 text-xs">
+          <form onSubmit={handleSubmit} className="space-y-4 text-xs relative">
+            {/* Honeypot: hidden from people and screen readers; only bots fill it in */}
+            <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, overflow: 'hidden' }}>
+              <label>
+                Leave this empty
+                <input type="text" name="website" tabIndex={-1} autoComplete="off" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} />
+              </label>
+            </div>
             <div>
               <label htmlFor="wish-author" className="font-bold text-[var(--text-muted)] uppercase block mb-1">
                 Your Name / Dreamer Handle:
@@ -292,6 +327,12 @@ export const DreamGuestbook: React.FC = () => {
                 {messageInput.length}/120
               </span>
             </div>
+
+            {notice && (
+              <p role="status" className="px-3 py-2 rounded-xl bg-[#D995B7]/15 border border-[#D995B7]/40 text-[var(--text-primary)] text-xs">
+                {notice}
+              </p>
+            )}
 
             <div>
               <span className="font-bold text-[var(--text-muted)] uppercase block mb-1.5">

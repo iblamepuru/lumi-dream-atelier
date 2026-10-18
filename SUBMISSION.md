@@ -14,7 +14,7 @@ The site is Lumi's portfolio, and every part of it answers the brief by doing ra
 
 I'm proudest of the moments that make it feel like a real little corner of the old web. Lumi chats back in character (powered by Claude, with rule-based replies as a fallback), remembers you when you return, and reacts to almost everything you do. There's a star-comb music box that plays an original lullaby, a "Catch the Falling Dreams" mini-game where every catch plays the next note of that lullaby, and a Dream Friend Maker where visitors sew their own ghost, cloud, robot, alien, monster or dreamy version of themselves. The pages are linked by a 90s webring, there's a live guestbook with a mechanical odometer, a sparkle cursor, 88x31 badges, and a Chaos Mode that turns the site into a 90s homepage that rearranges itself for every screen size. Five hidden stars unlock a secret constellation and a golden crown.
 
-Under the hood I cared about polish: zero console errors, full keyboard support, sound that starts muted with an always-visible switch, and a mobile Lighthouse run scoring 86–94 Performance and 100 Accessibility, Best Practices and SEO.
+Under the hood I cared about polish: zero console errors, full keyboard support, sound that starts muted with an always-visible switch, and three mobile Lighthouse runs on 18 Oct scoring 86–94 Performance, 100 Accessibility and Best Practices, and 91–100 SEO (reports in the repo).
 
 ---
 

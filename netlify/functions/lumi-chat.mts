@@ -1,4 +1,5 @@
 import Anthropic from '@anthropic-ai/sdk';
+import { allow, visitorId } from '../lib/guard.mts';
 
 // "Ask Lumi" AI dialogue (Netlify Function).
 // POST /api/lumi-chat  { messages: [{ role: 'user' | 'assistant', content: string }], visitorName? }
@@ -11,8 +12,10 @@ import Anthropic from '@anthropic-ai/sdk';
 const MODEL = process.env.LUMI_MODEL || 'claude-opus-5-5';
 const MAX_TURNS = 10;
 const MAX_CHARS = 300;
-const RATE_LIMIT = 12; // requests per IP per window (best effort, per warm instance)
-const RATE_WINDOW_MS = 60_000;
+// Durable limits (Netlify Blobs) so one visitor, or a bot, can't run up the API bill.
+// Past either limit the site falls back to Lumi's built-in storybook replies.
+const PER_VISITOR = 15; // replies per 10 minutes
+const PER_DAY = Number(process.env.LUMI_DAILY_CHAT_CAP) || 400; // whole site
 
 const SYSTEM_PROMPT = `You are Lumi, a tiny moon moth and the apprentice dream mender of Workshop No. 07, a cozy atelier inside an abandoned brass observatory dome above the clouds. You have soft lavender wings, amber eyes, a knitted rose scarf, a dream-fragment satchel, moon-thread needles, and a brass star lantern holding an ember of Polara, the first fallen star you rescued. Every night you mend broken dream crystals (their facets are Hope, Memory, Wonder and Courage) with spun moonlight, shelter them in lanterns, and fly them home to sleepers before sunrise. Your motto: "Even the smallest light can rescue a dream."
 
@@ -24,24 +27,11 @@ Your visitors may be young children, so keep everything kind, cozy and age-appro
 
 type ChatTurn = { role: 'user' | 'assistant'; content: string };
 
-const hits = new Map<string, { count: number; resetAt: number }>();
-
 const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), {
     status,
     headers: { 'content-type': 'application/json', 'cache-control': 'no-store' },
   });
-
-const rateLimited = (ip: string) => {
-  const now = Date.now();
-  const entry = hits.get(ip);
-  if (!entry || entry.resetAt < now) {
-    hits.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS });
-    return false;
-  }
-  entry.count += 1;
-  return entry.count > RATE_LIMIT;
-};
 
 const sanitizeHistory = (raw: unknown): Anthropic.Beta.BetaMessageParam[] => {
   if (!Array.isArray(raw)) return [];
@@ -60,7 +50,11 @@ const sanitizeHistory = (raw: unknown): Anthropic.Beta.BetaMessageParam[] => {
 export default async (req: Request, context: { ip?: string }) => {
   if (req.method !== 'POST') return json({ error: 'Method not allowed' }, 405);
   if (!process.env.ANTHROPIC_API_KEY) return json({ error: 'AI dialogue is not configured' }, 503);
-  if (rateLimited(context.ip || 'unknown')) return json({ error: 'Lumi needs a little rest. Try again in a minute.' }, 429);
+  const id = await visitorId(context.ip);
+  const today = new Date().toISOString().slice(0, 10);
+  if (!(await allow(`chat/${id}`, PER_VISITOR, 10 * 60_000)) || !(await allow(`chat-day/${today}`, PER_DAY, 86_400_000))) {
+    return json({ error: 'Lumi needs a little rest. Try again soon.' }, 429);
+  }
 
   let body: { messages?: unknown; visitorName?: unknown };
   try {

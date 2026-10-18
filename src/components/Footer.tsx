@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAtelier } from '../context/AtelierContext';
 import { EarlyWebBadges } from './EarlyWebBadges';
+import { Link } from './Link';
 import { playChime } from '../utils/soundEngine';
 import { RotateCcw, Sparkles, Code2, Palette, Volume2, Wand2, Zap } from 'lucide-react';
 
@@ -178,7 +179,10 @@ export const Footer: React.FC = () => {
             "Even the smallest light can rescue a dream."
           </p>
           <p>
-            Crafted with care for haX.baby · Baby's First Website · 2026
+            Crafted with care for haX.baby · Baby's First Website · 2026 ·{' '}
+            <Link to="/build-notes" className="underline underline-offset-2 hover:text-[var(--accent-gold)]">
+              Build notes for judges
+            </Link>
           </p>
         </div>
 

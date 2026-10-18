@@ -172,7 +172,7 @@ One click on ⚡ turns the site into a 90s homepage that re-lays itself out for 
 | **Core elements** | Character intro and sheet · 3+ projects · scroll-driven origin story · reacts to the visitor (eye tracking, clicks, sound with mute) · mobile layout · hidden Easter eggs |
 | **Tier 1** | Eyes follow the pointer (touch fallback) · scroll-driven chapters · Twilight/Midnight toggle changes palette *and* expression · responsive down to 320px · Easter eggs: five hidden stars unlock a constellation, diary and golden crown, and Lumi dozes off after 20 seconds of stillness |
 | **Tier 2** | Lullaby Lab (Web Audio music box, original lullaby, record and replay) · *Catch the Falling Dreams* mini-game (pointer, touch and keyboard) |
-| **Tier 3** | 3D Lumi (Three.js) · live guestbook (Netlify Functions + Blobs) · remembers returning visitors · chats back in character (Claude + fallback) · Lighthouse mobile in our runs: Performance 86–94, Accessibility 100, Best Practices 100, SEO 100 |
+| **Tier 3** | 3D Lumi (Three.js) · live guestbook (Netlify Functions + Blobs) · remembers returning visitors · chats back in character (Claude + fallback) · Lighthouse mobile, measured 18 Oct 2026 (3 runs, [reports](docs/lighthouse)): Performance 86–94, Accessibility 100, Best Practices 100, SEO 91–100 |
 | **Side quests** | Live guestbook · sparkle cursor trail · hit-counter odometer · click sounds with an always-visible mute switch · Responsive Chaos Mode |
 
 ---
@@ -182,6 +182,13 @@ One click on ⚡ turns the site into a 90s homepage that re-lays itself out for 
 React 19 · TypeScript · Vite · Tailwind CSS · Three.js · Web Audio API · HTML5 Canvas · Netlify Functions + Netlify Blobs · Anthropic SDK (Claude).
 
 A static boot screen with inlined CSS paints before the app loads; below-the-fold sections and Three.js load on demand; idle animation loops pause.
+
+**Built to be shared safely**
+
+- **Guestbook:** rate limits stored in Netlify Blobs (3 wishes per visitor per 10 minutes, 60 a day site-wide), a hidden honeypot field and a minimum fill-in time against bots, and gentle moderation that turns away links, emails, phone numbers and rude words with a friendly message. The visitor odometer counts each visitor at most once a day. Visitor IPs are only ever stored as salted hashes.
+- **Ask Lumi:** durable per-visitor limits (15 replies per 10 minutes) and a site-wide daily cap (`LUMI_DAILY_CHAT_CAP`, default 400) protect the API budget. The chat says plainly whether Lumi is answering with AI or from the storybook, and falls back to storybook replies whenever AI is unavailable.
+
+**For judges:** a "Start Lumi's journey" checklist on the home page walks the best two minutes (wake the star → repair the crystal → make a lantern → deliver the dream → find a star), and a small *Build notes for judges* link in the footer opens a one-page map of every requirement (`/build-notes`).
 
 ```
 src/
@@ -202,7 +209,11 @@ netlify/functions/
 npm install
 npm run dev      # http://localhost:5173
 npm run build    # type-check + production build
+npm test         # Playwright end-to-end tests (desktop + phone)
+npm run lighthouse   # mobile Lighthouse audit, saved to docs/lighthouse/
 ```
+
+**Tests** (`tests/lumi.spec.ts`, run against a production build with installed Chrome, on desktop and a phone profile): every page renders with no console errors, the 404 page, header navigation and back button, the mute switch remembering its setting, solving the crystal puzzle (and the journey checklist noticing), the guestbook falling back to browser storage, and Ask Lumi answering with storybook replies when AI is unavailable.
 
 Locally the guestbook saves in your browser and the chat uses rule-based replies; both go live on Netlify. Netlify settings come from `netlify.toml`; optional environment variables are `ANTHROPIC_API_KEY` (AI chat) and `LUMI_MODEL` (defaults to `claude-opus-5-5`).
 
