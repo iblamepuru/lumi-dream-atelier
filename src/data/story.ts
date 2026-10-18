@@ -30,9 +30,9 @@ export const STORY_SCENES: StoryScene[] = [
   },
   {
     id: 4,
-    title: 'Your Dream, Too',
-    subtitle: 'An apprentice’s warm welcome',
-    text: 'Lumi turns toward you with a soft flutter of lavender wings. Just moments ago, a fractured dream arrived at the repair mat. With your hands and Lumi’s moonlight thread, tonight we will make it whole once more.',
+    title: 'Where Lumi Is Going',
+    subtitle: 'A lantern in every window',
+    text: 'Lumi dreams of becoming a Master Dream Keeper, with a little lantern glowing in every sleeping window of the world. That journey starts tonight: a fractured dream has just arrived at the workbench, and Lumi needs your help to make it whole.',
     instruction: 'Step up to the workbench and begin restoring the dream crystal.',
   },
 ];

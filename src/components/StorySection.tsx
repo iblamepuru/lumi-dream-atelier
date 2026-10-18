@@ -492,7 +492,7 @@ export const StorySection: React.FC = () => {
           </div>
         </div>
 
-        {/* SCENE 4: Your Dream, Too */}
+        {/* SCENE 4: Where Lumi Is Going */}
         <div
           ref={(el) => {
             sceneRefs.current[3] = el;

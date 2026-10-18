@@ -15,7 +15,13 @@ export const LUMI_CHARACTER = {
   tagline: 'Even the smallest light can rescue a dream.',
   role: 'Junior Dream Repairer',
   workshop: 'Moonlit Atelier, Workshop No. 07',
-  home: 'A miniature workshop inside an abandoned observatory above the clouds.',
+  home: 'Workshop No. 07, a cosy nook inside an abandoned brass observatory above the clouds.',
+  quirks: [
+    'Hums lullabies a little off-key while sewing',
+    'Keeps lost buttons in a thimble collection',
+    'Antennae glow pink when embarrassed',
+    'Always forgets where the scissors went',
+  ],
   biography: 'High above the sleeping world, Lumi works through the quietest hours of the night. Guided by the faint chime of cracked dream crystals, this tiny artisan mends fragile hopes with threads of spun moonlight, tucks them into protective lanterns, and ensures no dreamer wakes up in the dark.',
   personality: [
     'Quietly brave',

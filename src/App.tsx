@@ -7,6 +7,7 @@ import { HeroScene } from './components/HeroScene';
 import { DeferredSection } from './components/DeferredSection';
 import { Footer } from './components/Footer';
 import { Webring } from './components/Webring';
+import { ThreeAnswers } from './components/ThreeAnswers';
 import { ChaosMode } from './components/ChaosMode';
 import { LumiSpeechBubble } from './components/LumiSpeechBubble';
 import { PAGES, PROJECT_PAGES, usePath } from './router';
@@ -187,6 +188,9 @@ const PageContent: React.FC<{ path: string }> = ({ path }) => {
       <>
         {/* Section B: Cinematic Hero */}
         <HeroScene />
+
+        {/* The brief's three questions, answered plainly */}
+        <ThreeAnswers />
 
         {/* Section C: Character Dossier & Official Sheet (with 2D/3D WebGL switch) */}
         <DeferredSection id="profile" minHeight={1400}>

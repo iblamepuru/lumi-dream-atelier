@@ -296,6 +296,22 @@ export const CharacterSheet: React.FC = () => {
             </div>
           </div>
 
+          {/* Home & Quirks */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="p-5 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-color)] space-y-2">
+              <span className="text-xs font-bold uppercase tracking-wider text-[var(--accent-gold)] block">Where Lumi lives</span>
+              <p className="text-sm text-[var(--text-secondary)] leading-relaxed">{LUMI_CHARACTER.home}</p>
+            </div>
+            <div className="p-5 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-color)] space-y-2">
+              <span className="text-xs font-bold uppercase tracking-wider text-[var(--accent-gold)] block">Little quirks</span>
+              <ul className="text-sm text-[var(--text-secondary)] leading-relaxed space-y-1">
+                {LUMI_CHARACTER.quirks.map((quirk) => (
+                  <li key={quirk}>☾ {quirk}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
           {/* Abilities & Weakness Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Special Ability */}
