@@ -4,8 +4,8 @@
 
 <p align="center">
   <a href="https://lumi-dream-atelier-hax.netlify.app/"><strong>🌙 Visit the live site</strong></a>
-  &nbsp;·&nbsp; haX.baby: Baby's First Website (17–19 Oct 2026)
-  &nbsp;·&nbsp; Track 2: Your Own Baby
+  &nbsp;·&nbsp; haX.baby: Baby's First Website 
+  &nbsp;·&nbsp; Your Own Baby
 </p>
 
 <p align="center">
