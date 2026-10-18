@@ -142,7 +142,7 @@ export const Footer: React.FC = () => {
               <span>Artwork & Graphics</span>
             </div>
             <p className="text-[12px] leading-relaxed">
-              100% bespoke inline SVG illustrations, responsive celestial maps, HTML5 Canvas dream cards, and CSS atmospheric layers crafted specifically for this project. Zero external image dependencies.
+              100% original: hand-built SVG illustrations and night-sky backdrops, a procedural Three.js 3D Lumi, HTML5 Canvas games and keepsake cards, and CSS effects, all made for this project. No stock art or external images.
             </p>
           </div>
 
@@ -164,7 +164,7 @@ export const Footer: React.FC = () => {
               <span>Open-Source Stack</span>
             </div>
             <p className="text-[12px] leading-relaxed">
-              Built with React, Vite, TypeScript, Three.js (3D WebGL model), Tailwind CSS, Lucide React, and canvas-confetti. Live guestbook and visitor odometer stored with Netlify Functions + Netlify Blobs. Ask Lumi replies are written by Claude (Anthropic), with rule-based replies as a fallback.
+              Built with React, Vite, TypeScript, Three.js (3D WebGL model), Tailwind CSS, Lucide React, and canvas-confetti. Live guestbook and visitor odometer stored with Netlify Functions + Netlify Blobs. Ask Lumi replies are written by Claude (Anthropic), with rule-based replies as a fallback. Built with help from AI coding assistants (Claude Code); all code reviewed and tested by the author.
             </p>
           </div>
 

@@ -34,7 +34,7 @@ Under the hood I cared about polish: zero console errors, full keyboard support,
 
 **Character, story & art**
 - Lumi, Workshop No. 07 and all story text are original creations for haX.baby (Track 2).
-- All artwork is original: hand-built SVG illustrations, CSS effects, an HTML5 Canvas mini-game and keepsake cards, and a Three.js 3D model of Lumi. No external images, stock art or existing characters.
+- All artwork is original: hand-built SVG illustrations and night-sky backdrops, CSS effects, HTML5 Canvas games and keepsake cards, and a procedural Three.js 3D model of Lumi. No external images, stock art or existing characters.
 
 **Audio**
 - All sounds are generated live in the browser with the Web Audio API (no audio files). The music box and "Lumi's Lullaby" are original compositions.
@@ -48,7 +48,7 @@ Under the hood I cared about polish: zero console errors, full keyboard support,
 - Three.js (MIT)
 - Lucide React icons (ISC)
 - canvas-confetti (ISC)
-- oxlint (MIT)
+- oxlint (MIT) and Playwright (Apache-2.0), for linting and end-to-end tests
 
 **Services**
 - Hosting, serverless functions and guestbook storage: Netlify (Netlify Functions + Netlify Blobs)
