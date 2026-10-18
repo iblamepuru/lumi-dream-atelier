@@ -97,13 +97,71 @@ One click on ⚡ turns the site into a 90s homepage that re-lays itself out for 
   </tr>
 </table>
 
-### On a phone
+---
 
-<p>
-  <img src="docs/screenshots/14-mobile-hero.jpg" alt="Lumi's hero on a phone" width="260">
-  &nbsp;
-  <img src="docs/screenshots/15-mobile-chaos.jpg" alt="Chaos Mode on a phone" width="260">
-</p>
+## Works on every screen
+
+### 📱 Phone (390 × 844)
+
+<table>
+  <tr>
+    <td width="20%"><img src="docs/screenshots/14-mobile-hero.jpg" alt="Hero on a phone"></td>
+    <td width="20%"><img src="docs/screenshots/16-mobile-menu.jpg" alt="Phone menu with every page and the Chaos Mode switch"></td>
+    <td width="20%"><img src="docs/screenshots/17-mobile-meet-lumi.jpg" alt="Meet Lumi on a phone"></td>
+    <td width="20%"><img src="docs/screenshots/18-mobile-lantern-studio.jpg" alt="Lantern Studio on a phone"></td>
+    <td width="20%"><img src="docs/screenshots/20-mobile-friend-maker.jpg" alt="Dream Friend Maker on a phone"></td>
+  </tr>
+  <tr>
+    <td align="center">Hero</td>
+    <td align="center">Menu</td>
+    <td align="center">Meet Lumi</td>
+    <td align="center">Lantern Studio</td>
+    <td align="center">Friend Maker</td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td width="20%"><img src="docs/screenshots/19-mobile-playroom.jpg" alt="Music box on a phone"></td>
+    <td width="20%"><img src="docs/screenshots/15-mobile-chaos.jpg" alt="Chaos Mode Pocket Pager layout on a phone"></td>
+    <td width="60%">The mute switch stays in the header on every screen, every control is a comfortable tap target, and nothing scrolls sideways at 320px and up. The music box, the game and the Friend Maker all work by touch.</td>
+  </tr>
+  <tr>
+    <td align="center">Music box</td>
+    <td align="center">Chaos: Pocket Pager</td>
+    <td></td>
+  </tr>
+</table>
+
+### 📲 Tablet (768 × 1024)
+
+<table>
+  <tr>
+    <td width="25%"><img src="docs/screenshots/21-tablet-hero.jpg" alt="Hero on a tablet"></td>
+    <td width="25%"><img src="docs/screenshots/22-tablet-story.jpg" alt="Origin story on a tablet"></td>
+    <td width="25%"><img src="docs/screenshots/23-tablet-friend-maker.jpg" alt="Dream Friend Maker on a tablet"></td>
+    <td width="25%"><img src="docs/screenshots/24-tablet-chaos.jpg" alt="Chaos Mode Desk Lamp layout on a tablet"></td>
+  </tr>
+  <tr>
+    <td align="center">Hero</td>
+    <td align="center">Origin story</td>
+    <td align="center">Friend Maker</td>
+    <td align="center">Chaos: Desk Lamp</td>
+  </tr>
+</table>
+
+---
+
+## Built the way the organizers suggested
+
+| Builder tip | How LUMI does it |
+|---|---|
+| **Pick one core idea and make it feel alive** | One idea, *a moth who mends dreams*, runs through every page; Lumi watches your cursor, changes mood, speaks in a bubble and chats back |
+| **Start with Tier 1** | All of Tier 1 first, then Tier 2 (music box, mini-game), then Tier 3 |
+| **Test on your phone early** | Every page checked at phone and tablet sizes (screenshots above) |
+| **Make the Easter egg delightful** | A sleeping character you can wake (Lumi dozes after 20s of stillness), a secret lullaby in the music box, and five hidden stars that unlock a constellation and a golden crown |
+| **Tell the story through motion, not text walls** | Scroll-driven chapters with a travelling light; every section stays under 150 words |
+| **Keep the mute button visible** | Sound starts muted; the switch lives in the header on every screen size |
 
 ---
 
