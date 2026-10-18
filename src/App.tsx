@@ -9,6 +9,8 @@ import { Footer } from './components/Footer';
 import { Webring } from './components/Webring';
 import { ThreeAnswers } from './components/ThreeAnswers';
 import { JourneyChecklist } from './components/JourneyChecklist';
+import { LiveSky } from './components/LiveSky';
+import { ScrollCompanion } from './components/ScrollCompanion';
 import { ChaosMode } from './components/ChaosMode';
 import { LumiSpeechBubble } from './components/LumiSpeechBubble';
 import { PAGES, PROJECT_PAGES, usePath } from './router';
@@ -274,9 +276,15 @@ const PageContent: React.FC<{ path: string }> = ({ path }) => {
 const AtelierContent: React.FC = () => {
   const path = usePath();
   return (
-    <div className="min-h-screen flex flex-col relative selection:bg-[#F4C96B]/30 selection:text-[var(--text-primary)]">
+    <>
+      {/* Living sky behind every page (stars, fireflies, shooting stars) */}
+      <LiveSky />
+    <div className="min-h-screen flex flex-col relative z-[1] selection:bg-[#F4C96B]/30 selection:text-[var(--text-primary)]">
       {/* 4-Point Star Cursor Sparkle Trail (+2 pts) */}
       <SparkleTrail />
+
+      {/* A little Lumi who flies down the page with you */}
+      <ScrollCompanion />
 
       {/* Dynamic Cursor Light Field */}
       <LanternLightField />
@@ -306,6 +314,7 @@ const AtelierContent: React.FC = () => {
       {/* Section I: Honest Footer & Judge Controls */}
       <Footer />
     </div>
+    </>
   );
 };
 
