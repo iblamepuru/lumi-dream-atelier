@@ -3,6 +3,7 @@
 - **Track:** Track 2 — Your Own Baby (Original Character)
 - **Live website:** https://lumi-dream-atelier-hax.netlify.app/
 - **GitHub repository:** https://github.com/iblamepuru/lumi-dream-atelier
+- **Video walkthrough:** docs/videos/walkthrough.webm
 
 ---
 
@@ -16,7 +17,7 @@ I built all five Tier 2 interactions rather than one or two: the Lullaby Lab mus
 
 I'm proudest of the moments that make it feel like a real little corner of the old web. Lumi chats back in character (powered by Claude, with rule-based replies as a fallback), remembers you when you return, and reacts to almost everything you do. Every catch in the mini-game plays the next note of Lumi's lullaby, and a Dream Friend Maker lets visitors sew their own ghost, cloud, robot, alien, monster or dreamy version of themselves. The pages are linked by a 90s webring, there's a live guestbook with a mechanical odometer, a sparkle cursor, 88x31 badges, and a Chaos Mode that turns the site into a 90s homepage that rearranges itself for every screen size. Five hidden stars unlock a secret constellation and a golden crown.
 
-Under the hood I cared about polish: zero console errors, full keyboard support, sound that starts muted with an always-visible switch, and three mobile Lighthouse runs on 18 Oct scoring 86–94 Performance, 100 Accessibility and Best Practices, and 91–100 SEO (reports in the repo).
+Under the hood I cared about polish: zero console errors, full keyboard support, sound that starts muted with an always-visible switch, and mobile Lighthouse runs on 18 Oct scoring 82–94 Performance, 100 Accessibility, 100 Best Practices, and 91–100 SEO (reports in docs/lighthouse).
 
 ---
 
