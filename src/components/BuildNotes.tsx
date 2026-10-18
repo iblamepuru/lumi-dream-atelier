@@ -30,6 +30,9 @@ const CHECKLIST: { group: string; items: { text: string; to?: string }[] }[] = [
     group: 'Tier 2',
     items: [
       { text: 'Lullaby Lab: Web Audio music box with an original lullaby', to: '/playroom' },
+      { text: 'Nightlight cursor: Lantern Hide-and-Seek (CSS mask over a dark dream layer)', to: '/playroom' },
+      { text: 'Dream Delivery map animation synced with scroll', to: '/workshop/delivery-map' },
+      { text: 'Interactive storybook with page-turn flips (touch + keyboard)', to: '/story' },
       { text: 'Mini-game: Catch the Falling Dreams', to: '/playroom' },
     ],
   },

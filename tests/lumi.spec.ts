@@ -108,3 +108,37 @@ test('Ask Lumi still answers (storybook replies) when AI is unavailable', async 
   await expect(page.getByText(/storybook right now/)).toBeVisible();
   await expect(page.locator('#lumi-chat-dialog').getByText(/waking worries/)).toBeVisible();
 });
+
+test('the bedtime storybook turns pages with the keyboard', async ({ page, isMobile }) => {
+  await page.goto('/story');
+  const book = page.locator('[aria-roledescription="book"]');
+  await book.scrollIntoViewIfNeeded();
+  await book.focus();
+  await expect(page.locator('#storybook').getByText(isMobile ? '1 / 8' : '1 / 8')).toBeVisible();
+  await page.keyboard.press('ArrowRight');
+  await expect(page.locator('#storybook').getByText(isMobile ? '2 / 8' : '2–3 / 8')).toBeVisible();
+  await page.keyboard.press('ArrowLeft');
+  await expect(page.locator('#storybook').getByText('1 / 8')).toBeVisible();
+});
+
+test('the nightlight lantern finds a hidden friend using only the arrow keys', async ({ page }) => {
+  await page.goto('/playroom');
+  const dark = page.getByRole('application', { name: /Dark dream layer/ });
+  await dark.scrollIntoViewIfNeeded();
+  await dark.focus();
+  // From the centre: two steps left and three up lands the light on the dozing owl.
+  for (const key of ['ArrowLeft', 'ArrowLeft', 'ArrowUp', 'ArrowUp', 'ArrowUp']) await page.keyboard.press(key);
+  await expect(page.locator('#playroom').getByText('1/4 found')).toBeVisible();
+});
+
+test('scrolling the delivery flight delivers every dream', async ({ page }) => {
+  await page.goto('/workshop/delivery-map');
+  const route = page.locator('#delivery-route');
+  await route.scrollIntoViewIfNeeded();
+  const end = await route.evaluate((el) => el.getBoundingClientRect().top + window.scrollY + el.offsetHeight - window.innerHeight);
+  for (let y = 0; y <= end; y += 400) await page.evaluate((v) => window.scrollTo(0, v), y);
+  await page.evaluate((v) => window.scrollTo(0, v), end);
+  for (const stop of ['Cloud Garden', 'Sleeping Lighthouse', 'Moonflower Valley']) {
+    await expect(route.locator('svg text', { hasText: `✓ ${stop}` })).toBeVisible();
+  }
+});

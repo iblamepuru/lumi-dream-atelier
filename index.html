@@ -31,6 +31,7 @@
       try {
         var saved = JSON.parse(localStorage.getItem('lumi_atelier_state_v1') || '{}');
         document.documentElement.setAttribute('data-theme', saved.theme === 'twilight' ? 'twilight' : 'midnight');
+        document.documentElement.setAttribute('data-page', location.pathname === '/' ? 'home' : 'page');
       } catch (e) {
         document.documentElement.setAttribute('data-theme', 'midnight');
       }
@@ -43,7 +44,7 @@
         position: absolute;
         inset: 0;
         min-height: 100vh;
-        background: url('/images/hero-night.svg') center bottom / cover no-repeat, linear-gradient(180deg, #130d20 0%, #201736 50%, #29213f 100%);
+        background: transparent;
         color: #fff8f1;
         font-family: Nunito, system-ui, -apple-system, 'Segoe UI', sans-serif;
       }
@@ -74,7 +75,7 @@
         color: transparent;
       }
       #boot p { margin: 0; font-size: 1.25rem; line-height: 1.6; color: #d4c9eb; }
-      html[data-theme='twilight'] #boot { background: url('/images/hero-dawn.svg') center bottom / cover no-repeat, #fff9f3; color: #3b2a3f; }
+      html[data-theme='twilight'] #boot { color: #3b2a3f; }
       html[data-theme='twilight'] #boot p { color: #6b5470; }
       html[data-theme='twilight'] #boot .bar { border-color: rgba(92, 64, 51, 0.15); }
     </style>

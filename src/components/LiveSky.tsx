@@ -196,8 +196,12 @@ export const LiveSky: React.FC = () => {
 
     // Wait until the page has loaded and settled so first paint stays fast.
     let delay = 0;
+    let idle = 0;
     const kickoff = () => {
-      delay = window.setTimeout(start, 1200);
+      delay = window.setTimeout(() => {
+        if (typeof window.requestIdleCallback === 'function') idle = window.requestIdleCallback(start, { timeout: 2500 });
+        else start();
+      }, 2500);
     };
     if (document.readyState === 'complete') kickoff();
     else window.addEventListener('load', kickoff, { once: true });
@@ -207,6 +211,7 @@ export const LiveSky: React.FC = () => {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => {
       window.clearTimeout(delay);
+      if (idle) window.cancelIdleCallback(idle);
       window.removeEventListener('load', kickoff);
       document.removeEventListener('visibilitychange', onVisibility);
       window.removeEventListener('resize', onResize);

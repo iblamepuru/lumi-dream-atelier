@@ -54,7 +54,7 @@ export const HeroScene: React.FC = () => {
       aria-label="Hero Introduction"
       className="relative min-h-[90vh] flex items-center justify-center overflow-hidden py-16 px-4 sm:px-6 lg:px-8"
       style={{
-        background: 'var(--hero-backdrop)',
+        background: 'transparent', // the backdrop is painted on <body> for the home page
       }}
     >
       {/* Decorative Night Clouds & Stars Background */}

@@ -52,13 +52,15 @@ function scene(p) {
   <radialGradient id="lanternGlow"><stop offset="0" stop-color="#ffd98a" stop-opacity="0.75"/><stop offset="1" stop-color="#ffd98a" stop-opacity="0"/></radialGradient>
   <radialGradient id="windowGlow"><stop offset="0" stop-color="#ffd98a" stop-opacity="0.9"/><stop offset="1" stop-color="#ffd98a" stop-opacity="0"/></radialGradient>
   <linearGradient id="shoot" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff8f1" stop-opacity="0"/><stop offset="1" stop-color="#fff8f1" stop-opacity="0.9"/></linearGradient>
-  <filter id="soft" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="55"/></filter>
+  <radialGradient id="nebA"><stop offset="0" stop-color="${p.nebula[0]}"/><stop offset="1" stop-color="${p.nebula[0]}" stop-opacity="0"/></radialGradient>
+  <radialGradient id="nebB"><stop offset="0" stop-color="${p.nebula[1]}"/><stop offset="1" stop-color="${p.nebula[1]}" stop-opacity="0"/></radialGradient>
 </defs>
 <rect width="${W}" height="${H}" fill="url(#sky)"/>
-<g filter="url(#soft)" opacity="${p.nebulaOpacity}">
-  <ellipse cx="420" cy="230" rx="420" ry="110" fill="${p.nebula[0]}" transform="rotate(-14 420 230)"/>
-  <ellipse cx="900" cy="170" rx="380" ry="90" fill="${p.nebula[1]}" transform="rotate(-10 900 170)"/>
-  <ellipse cx="1350" cy="300" rx="300" ry="120" fill="${p.nebula[0]}"/>
+<!-- Soft nebula glows: radial gradients instead of a blur filter, so the image is cheap to draw -->
+<g opacity="${p.nebulaOpacity}">
+  <ellipse cx="420" cy="230" rx="520" ry="200" fill="url(#nebA)" transform="rotate(-14 420 230)"/>
+  <ellipse cx="900" cy="170" rx="470" ry="170" fill="url(#nebB)" transform="rotate(-10 900 170)"/>
+  <ellipse cx="1350" cy="300" rx="400" ry="210" fill="url(#nebA)"/>
 </g>
 <rect width="${W}" height="${H}" fill="url(#moonHalo)"/>
 ${stars}

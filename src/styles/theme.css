@@ -36,6 +36,7 @@
   --surface-badge: rgba(244, 201, 107, 0.25);
   --sky-gradient: linear-gradient(180deg, #F9ECE4 0%, #EFE1F5 50%, #FFF8F1 100%);
   --hero-backdrop: url('/images/hero-dawn.svg') center bottom / cover no-repeat, var(--sky-gradient);
+  --page-backdrop: url('/images/hero-dawn.svg');
   --nav-bg: rgba(255, 248, 241, 0.85);
 }
 
@@ -60,6 +61,7 @@
   --surface-badge: rgba(185, 165, 232, 0.2);
   --sky-gradient: linear-gradient(180deg, #130D20 0%, #201736 50%, #29213F 100%);
   --hero-backdrop: url('/images/hero-night.svg') center bottom / cover no-repeat, var(--sky-gradient);
+  --page-backdrop: url('/images/hero-night.svg');
   --nav-bg: rgba(28, 22, 41, 0.85);
 }
 
@@ -108,4 +110,11 @@ h1, h2, h3, .font-serif {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent-gold);
+}
+
+/* Home page backdrop: painted on <body> so it shows from the very first frame (boot screen
+   included) and isn't re-counted as a late "largest paint" when the app takes over. Sized like
+   "cover" for the first screen: at least the full width, and at least one screen tall. */
+html[data-page='home'] body {
+  background: var(--page-backdrop) top center / max(100vw, 177.78vh) auto no-repeat, var(--bg-primary);
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import { Moon } from 'lucide-react';
 import { LullabyLab } from './LullabyLab';
 import { CatchTheDreams } from './CatchTheDreams';
+import { NightlightSeek } from './NightlightSeek';
 
 export const NightPlayroom: React.FC = () => {
   return (
@@ -27,6 +28,8 @@ export const NightPlayroom: React.FC = () => {
         <LullabyLab />
         <CatchTheDreams />
       </div>
+
+      <NightlightSeek />
     </section>
   );
 };

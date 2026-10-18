@@ -32,7 +32,7 @@ const currentSection = () => {
   return null;
 };
 
-export const ScrollCompanion: React.FC = () => {
+const Companion: React.FC = () => {
   const { state, lumiSay } = useAtelier();
   const reducedMotion = useReducedMotion();
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -132,4 +132,16 @@ export const ScrollCompanion: React.FC = () => {
       </button>
     </div>
   );
+};
+
+/** Mounts the flying Lumi on the first scroll, so the page's first load stays light. */
+export const ScrollCompanion: React.FC = () => {
+  const [armed, setArmed] = useState(false);
+  useEffect(() => {
+    if (armed) return;
+    const arm = () => setArmed(true);
+    window.addEventListener('scroll', arm, { once: true, passive: true });
+    return () => window.removeEventListener('scroll', arm);
+  }, [armed]);
+  return armed ? <Companion /> : null;
 };

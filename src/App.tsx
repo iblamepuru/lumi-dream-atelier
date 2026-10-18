@@ -21,6 +21,8 @@ import { Sparkles, X } from 'lucide-react';
 // once the browser is idle or the visitor scrolls near them (see DeferredSection).
 const CharacterSheet = lazy(() => import('./components/CharacterSheet').then((m) => ({ default: m.CharacterSheet })));
 const StorySection = lazy(() => import('./components/StorySection').then((m) => ({ default: m.StorySection })));
+const BedtimeStorybook = lazy(() => import('./components/BedtimeStorybook').then((m) => ({ default: m.BedtimeStorybook })));
+const DeliveryRouteScroll = lazy(() => import('./components/DeliveryRouteScroll').then((m) => ({ default: m.DeliveryRouteScroll })));
 const ProjectShowcase = lazy(() => import('./components/ProjectShowcase').then((m) => ({ default: m.ProjectShowcase })));
 const NightPlayroom = lazy(() => import('./playroom/NightPlayroom').then((m) => ({ default: m.NightPlayroom })));
 const FriendMaker = lazy(() => import('./friends/FriendMaker').then((m) => ({ default: m.FriendMaker })));
@@ -132,13 +134,14 @@ const PageContent: React.FC<{ path: string }> = ({ path }) => {
   const isNotes = path === '/build-notes';
 
   useEffect(() => {
+    document.documentElement.setAttribute('data-page', path === '/' ? 'home' : 'page');
     const named = isNotes ? { title: 'Build Notes' } : (project ?? (page && page.path !== '/' ? page : null));
     document.title = named
       ? `${named.title} · LUMI — The Dream Repair Atelier`
       : page
         ? 'LUMI — The Dream Repair Atelier | haX.baby'
         : 'Lost dream (404) · LUMI';
-  }, [page, project, isNotes]);
+  }, [page, project, isNotes, path]);
 
   // New page: start at the top, or at #section once its (lazy) content has arrived.
   useLayoutEffect(() => {
@@ -186,6 +189,7 @@ const PageContent: React.FC<{ path: string }> = ({ path }) => {
         </div>
         <Suspense fallback={<SectionFallback />}>
           <ProjectShowcase focus={project.tab} />
+          {project.tab === 'navigator' && <DeliveryRouteScroll />}
         </Suspense>
         <Webring path="/workshop" />
       </>
@@ -216,9 +220,19 @@ const PageContent: React.FC<{ path: string }> = ({ path }) => {
           <StorySection />
         </DeferredSection>
 
+        {/* Tier 2: interactive storybook with page-turn flips */}
+        <DeferredSection id="storybook" minHeight={700}>
+          <BedtimeStorybook />
+        </DeferredSection>
+
         {/* Section E & F: Interactive Projects & Dream Lab */}
         <DeferredSection id="projects" minHeight={1200}>
           <ProjectShowcase />
+        </DeferredSection>
+
+        {/* Tier 2: Dream Delivery map animation synced with scroll */}
+        <DeferredSection id="delivery-route" minHeight={1600}>
+          <DeliveryRouteScroll />
         </DeferredSection>
 
         {/* Tier 2: Lullaby Lab music box + Catch the Falling Dreams mini-game */}
@@ -256,7 +270,12 @@ const PageContent: React.FC<{ path: string }> = ({ path }) => {
       <PageHeader path={path} />
       <Suspense fallback={<SectionFallback />}>
         {path === '/meet-lumi' && <CharacterSheet />}
-        {path === '/story' && <StorySection />}
+        {path === '/story' && (
+          <>
+            <StorySection />
+            <BedtimeStorybook />
+          </>
+        )}
         {path === '/workshop' && <ProjectShowcase />}
         {path === '/playroom' && <NightPlayroom />}
         {path === '/dream-friends' && <FriendMaker />}

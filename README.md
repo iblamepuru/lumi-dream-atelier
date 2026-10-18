@@ -157,7 +157,7 @@ One click on ⚡ turns the site into a 90s homepage that re-lays itself out for 
 | Builder tip | How LUMI does it |
 |---|---|
 | **Pick one core idea and make it feel alive** | One idea, *a moth who mends dreams*, runs through every page; Lumi watches your cursor, changes mood, speaks in a bubble and chats back |
-| **Start with Tier 1** | All of Tier 1 first, then Tier 2 (music box, mini-game), then Tier 3 |
+| **Start with Tier 1** | All of Tier 1 first, then all five Tier 2 interactions, then Tier 3 |
 | **Test on your phone early** | Every page checked at phone and tablet sizes (screenshots above) |
 | **Make the Easter egg delightful** | A sleeping character you can wake (Lumi dozes after 20s of stillness), a secret lullaby in the music box, and five hidden stars that unlock a constellation and a golden crown |
 | **Tell the story through motion, not text walls** | Scroll-driven chapters with a travelling light; every section stays under 150 words |
@@ -171,7 +171,7 @@ One click on ⚡ turns the site into a 90s homepage that re-lays itself out for 
 |---|---|
 | **Core elements** | Character intro and sheet · 3+ projects · scroll-driven origin story · reacts to the visitor (eye tracking, clicks, sound with mute) · mobile layout · hidden Easter eggs |
 | **Tier 1** | Eyes follow the pointer (touch fallback) · scroll-driven chapters · Twilight/Midnight toggle changes palette *and* expression · responsive down to 320px · Easter eggs: five hidden stars unlock a constellation, diary and golden crown, and Lumi dozes off after 20 seconds of stillness |
-| **Tier 2** | Lullaby Lab (Web Audio music box, original lullaby, record and replay) · *Catch the Falling Dreams* mini-game (pointer, touch and keyboard) |
+| **Tier 2** (all 5) | Lullaby Lab (Web Audio music box, original lullaby, record and replay) · nightlight cursor: *Lantern Hide-and-Seek*, a CSS-masked lantern revealing a dark dream layer (pointer, touch, arrow keys) · Dream Delivery flight: Lumi flies an SVG route synced to scroll · *Lumi and the Little Light* storybook with 3D page-turn flips (swipe, keys, buttons) · *Catch the Falling Dreams* mini-game |
 | **Tier 3** | 3D Lumi (Three.js) · live guestbook (Netlify Functions + Blobs) · remembers returning visitors · chats back in character (Claude + fallback) · Lighthouse mobile, measured 18 Oct 2026 (3 runs, [reports](docs/lighthouse)): Performance 86–94, Accessibility 100, Best Practices 100, SEO 91–100 |
 | **Side quests** | Live guestbook · sparkle cursor trail · hit-counter odometer · click sounds with an always-visible mute switch · Responsive Chaos Mode |
 
@@ -213,7 +213,7 @@ npm test         # Playwright end-to-end tests (desktop + phone)
 npm run lighthouse   # mobile Lighthouse audit, saved to docs/lighthouse/
 ```
 
-**Tests** (`tests/lumi.spec.ts`, run against a production build with installed Chrome, on desktop and a phone profile): every page renders with no console errors, the 404 page, header navigation and back button, the mute switch remembering its setting, solving the crystal puzzle (and the journey checklist noticing), the guestbook falling back to browser storage, and Ask Lumi answering with storybook replies when AI is unavailable.
+**Tests** (`tests/lumi.spec.ts`, run against a production build with installed Chrome, on desktop and a phone profile): every page renders with no console errors, the 404 page, header navigation and back button, the mute switch remembering its setting, solving the crystal puzzle (and the journey checklist noticing), the guestbook falling back to browser storage, Ask Lumi answering with storybook replies when AI is unavailable, the storybook turning pages by keyboard, the nightlight finding a dream friend with only the arrow keys, and the scroll-synced delivery flight reaching every stop.
 
 Locally the guestbook saves in your browser and the chat uses rule-based replies; both go live on Netlify. Netlify settings come from `netlify.toml`; optional environment variables are `ANTHROPIC_API_KEY` (AI chat) and `LUMI_MODEL` (defaults to `claude-opus-5-5`).
 
