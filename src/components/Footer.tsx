@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAtelier } from '../context/AtelierContext';
+import { EarlyWebBadges } from './EarlyWebBadges';
 import { playChime } from '../utils/soundEngine';
 import { RotateCcw, Sparkles, Code2, Palette, Volume2, Wand2, Zap } from 'lucide-react';
 
@@ -167,6 +168,9 @@ export const Footer: React.FC = () => {
           </div>
 
         </div>
+
+        {/* 90s-style 88x31 badge wall */}
+        <EarlyWebBadges />
 
         {/* Bottom Tagline & Copyright */}
         <div className="pt-6 border-t border-[var(--border-color)] flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-[var(--text-muted)]">
