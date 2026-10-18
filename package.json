@@ -11,6 +11,7 @@
     "lighthouse": "node scripts/lighthouse.mjs",
     "screenshots": "node scripts/capture-screenshots.mjs",
     "record:video": "node scripts/record-walkthrough.mjs",
+    "video:tour": "node scripts/make-feature-video.mjs",
     "test": "playwright test"
   },
   "dependencies": {

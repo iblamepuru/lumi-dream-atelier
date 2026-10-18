@@ -3,7 +3,9 @@
 - **Track:** Track 2 — Your Own Baby (Original Character)
 - **Live website:** https://lumi-dream-atelier-hax.netlify.app/
 - **GitHub repository:** https://github.com/iblamepuru/lumi-dream-atelier
-- **Video walkthrough:** docs/videos/walkthrough.webm
+- **Full Feature Video Tour (Spoken Narration + Burned-in Subtitles):** docs/videos/lumi-feature-tour.mp4
+- **Video Subtitles (SRT):** docs/videos/lumi-feature-tour.srt
+- **Quick Walkthrough:** docs/videos/walkthrough.webm
 
 ---
 
