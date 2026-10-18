@@ -24,6 +24,8 @@
     <meta property="og:image:alt" content="Lumi, a tiny moon moth with a brass lantern, beside a crescent moon" />
     <meta name="twitter:card" content="summary_large_image" />
 
+    <link rel="preload" as="image" href="/images/hero-night.svg" type="image/svg+xml" />
+
     <!-- Paint the saved Twilight/Midnight theme before any JavaScript loads -->
     <script>
       try {
@@ -41,7 +43,7 @@
         position: absolute;
         inset: 0;
         min-height: 100vh;
-        background: linear-gradient(180deg, #130d20 0%, #201736 50%, #29213f 100%);
+        background: url('/images/hero-night.svg') center bottom / cover no-repeat, linear-gradient(180deg, #130d20 0%, #201736 50%, #29213f 100%);
         color: #fff8f1;
         font-family: Nunito, system-ui, -apple-system, 'Segoe UI', sans-serif;
       }
@@ -72,7 +74,7 @@
         color: transparent;
       }
       #boot p { margin: 0; font-size: 1.25rem; line-height: 1.6; color: #d4c9eb; }
-      html[data-theme='twilight'] #boot { background: #fff9f3; color: #3b2a3f; }
+      html[data-theme='twilight'] #boot { background: url('/images/hero-dawn.svg') center bottom / cover no-repeat, #fff9f3; color: #3b2a3f; }
       html[data-theme='twilight'] #boot p { color: #6b5470; }
       html[data-theme='twilight'] #boot .bar { border-color: rgba(92, 64, 51, 0.15); }
     </style>

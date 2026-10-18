@@ -54,7 +54,7 @@ export const HeroScene: React.FC = () => {
       aria-label="Hero Introduction"
       className="relative min-h-[90vh] flex items-center justify-center overflow-hidden py-16 px-4 sm:px-6 lg:px-8"
       style={{
-        background: 'var(--sky-gradient)',
+        background: 'var(--hero-backdrop)',
       }}
     >
       {/* Decorative Night Clouds & Stars Background */}

@@ -35,6 +35,7 @@
   --shadow-glow: 0 0 25px rgba(244, 201, 107, 0.35);
   --surface-badge: rgba(244, 201, 107, 0.25);
   --sky-gradient: linear-gradient(180deg, #F9ECE4 0%, #EFE1F5 50%, #FFF8F1 100%);
+  --hero-backdrop: url('/images/hero-dawn.svg') center bottom / cover no-repeat, var(--sky-gradient);
   --nav-bg: rgba(255, 248, 241, 0.85);
 }
 
@@ -58,6 +59,7 @@
   --shadow-glow: 0 0 35px rgba(244, 201, 107, 0.55);
   --surface-badge: rgba(185, 165, 232, 0.2);
   --sky-gradient: linear-gradient(180deg, #130D20 0%, #201736 50%, #29213F 100%);
+  --hero-backdrop: url('/images/hero-night.svg') center bottom / cover no-repeat, var(--sky-gradient);
   --nav-bg: rgba(28, 22, 41, 0.85);
 }
 
